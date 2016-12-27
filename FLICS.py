@@ -14,7 +14,8 @@ def IterSum(source):
         else:
             break
     return y
-
+#Create character class, which is used for storing character information. For now, this is mostly for saving/loading
+#from text files, but will eventually be passed to more interactive windows.
 class Character(object):
     def __init__(self, filename, details, exp, traits, skills, abilities):
         self.filename = filename
@@ -56,8 +57,6 @@ class Character(object):
         }
         self.abilities = {}
 
-    
-
     def LevelAdjust(self):
         #Get Character level and extrapolate reliant values.
         if self.exp[1] == self.exp[2]:
@@ -87,7 +86,8 @@ class Character(object):
 
     def Load(self):
         #Extract variables from file as strings, translate to lists/dicts with eval as necessary.
-        #Override current values, then push to interface with Update.
+        #Override current values, then push to interface with Update. Saving and loading works perfectly,
+        #however, Update() is failing me right now.
         with open(simpledialog.askstring("Load Character", "Enter Character Name Below")+".txt", "r") as File:
             self.filename = File.readline().rstrip("\n")
             self.details = eval(File.readline().rstrip("\n"))
@@ -106,6 +106,7 @@ class Character(object):
         print(self.skills)
         print(type(self.skills))
         print(self.abilities)
+        #Print is for debugging/verification purposes. Will be removed once the entire process is known to work.
 
 #Establish character object. Additional instances not necessary as
 #long term storage for values is on external file.
@@ -115,7 +116,7 @@ print(CurrentChar)
 
 class MainGui:
     #Clusterfuck of a Gui. Really might need to look 
-    #into something better thank tkinter for next iteration.
+    #into learning how to clean this up and make the code more compact.
     def __init__(self, master):
         self.master = master
         self.master.title("Fallen Legacy Character Suite")
